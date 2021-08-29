@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 
 namespace Jammo.HTTP
 {
     public class JHttpClient
     {
+        public static HttpClient GlobalClient = new HttpClient();
+        
         private Url url;
         public Url Url => url;
         

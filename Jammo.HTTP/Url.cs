@@ -9,6 +9,12 @@ namespace Jammo.HTTP
 {
     public readonly struct Url
     {
+        private static readonly HttpClient ValidityClient = new HttpClient
+        {
+            Timeout = TimeSpan.FromSeconds(3),
+            MaxResponseContentBufferSize = 1
+        };
+        
         private readonly string value;
         
         public readonly bool Secure;
@@ -22,15 +28,9 @@ namespace Jammo.HTTP
         {
             this.value = value;
 
-            var client = new HttpClient
-            {
-                Timeout = TimeSpan.FromSeconds(3),
-                MaxResponseContentBufferSize = 1
-            };
-
             try
             {
-                IsValid =  client.GetAsync(this.value).Result.StatusCode == HttpStatusCode.OK;
+                IsValid = ValidityClient.GetAsync(this.value).Result.StatusCode == HttpStatusCode.OK;
             }
             catch (AggregateException)
             {
