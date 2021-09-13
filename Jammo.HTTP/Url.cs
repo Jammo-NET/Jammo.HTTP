@@ -99,7 +99,7 @@ namespace Jammo.HTTP
 
         public Url Fix()
         {
-            return new Url(value);
+            throw new NotImplementedException();
         }
 
         public override string ToString()

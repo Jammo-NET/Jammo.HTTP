@@ -24,5 +24,16 @@ namespace HTTP_Tests
             
             Assert.True(client.Url.ToString() == "https://www.github.com/");
         }
+
+        [Test]
+        public void TestResponseData()
+        { 
+            // NOTE: Very unsafe, may fail if pastebin is down or something
+
+            var url = new Url("https://pastebin.com/raw/F0EzQbcm");
+            var client = new JHttpClient(url);
+            
+            Assert.True(client.Get().Content.ReadAsStringAsync().Result == "MyTestPaste");
+        }
     }
 }
